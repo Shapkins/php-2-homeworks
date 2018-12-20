@@ -6,8 +6,7 @@
 </head>
 <body>
   <form enctype="multipart/form-data" action="list.php" method="POST">
-  <!-- Название элемента input определяет имя в массиве $_FILES -->
-  Аватар: <input name="userfile" type="file" />
+  Тест: <input name="userfile" type="file" />
   <br />
   <input type="submit" value="Отправить">
   </form>
