@@ -17,8 +17,8 @@ if (count($argv) == 1) {
   } else {
     fclose($handle);
     $handle = fopen('money.csv', 'a');
+    fputcsv($handle, array(date('Y-m-d'), $argv[1], implode (' ', array_slice($argv, 2))));
     $recordString = implode (',', array(date('Y-m-d'), $argv[1], implode (' ', array_slice($argv, 2))));
-    fputcsv($handle, array($recordString));
     echo 'Добавлена строка: ' . $recordString;
   }
 }
