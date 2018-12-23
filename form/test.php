@@ -5,13 +5,6 @@ $tests = array_slice(scandir($uploaddir), 2);
 $testFilePath = $uploaddir . $tests[$_GET['file'] - 1];
 $json = file_get_contents($testFilePath);
 $data = json_decode($json, true);
-$correctAnswers = [];
-$question = 0;
-foreach($data as $task) {
-  $question++;
-  $correct = $task['correct'] . 'of' . $question;
-  array_push($correctAnswers, $correct);
-}
 $question = 0;
 
 ?>
@@ -32,7 +25,7 @@ $question = 0;
       $answer = 0;
       foreach($task['answer'] as $variant) {
         $answer++;
-        echo '<label><input type="radio" name="' . $answer . 'of' . $question . '">' . $variant . '</label>';
+        echo '<label><input type="radio" name="q' . $question . '" value="' . $variant . '">' . $variant . '</label>';
       }
       echo '</fieldset>';
     }
@@ -44,13 +37,14 @@ $question = 0;
 </html>
 
 <?php
-if (!empty($_POST)) {
-  $question = 0;
+
+if (!(empty($_POST))) {
   $points = 0;
+  $question = 0;
   foreach($data as $task) {
     $question++;
-    $correct = $task['correct'] . 'of' . $question;
-    if (!empty($_POST[$correct])) {
+    $id = 'q' . $question;
+    if ($task['correct'] == $_POST[$id]) {
       $points++;
     }
   }
